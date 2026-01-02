@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <title>VR VITORA — Demo AR</title>
+    <meta
+      name="description"
+      content="Prototipo de realidad aumentada para proyectar video o modelo 3D sobre un marco rectangular." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+  </head>
+  <body>
+    <div class="ui-shell" aria-live="polite">
+      <header>
+        <p class="eyebrow">VR VITORA • AR Lab</p>
+        <h1>Apunta al marco negro y deja que cobre vida.</h1>
+      </header>
+      <div class="status-pill" data-status>Marcador no detectado</div>
+      <div class="controls" role="toolbar" aria-label="Alternar contenido">
+        <button class="pill is-active" data-mode="video">Video XR</button>
+        <button class="pill" data-mode="model">Modelo 3D</button>
+      </div>
+      <p class="hint">
+        Tip: imprime o muestra el marcador de referencia incluido abajo, o reemplázalo por la textura de tu cuadro real y recompila el archivo .mind.
+      </p>
+    </div>
+
+    <main class="ar-stage">
+      <a-scene
+        mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example.mind"
+        vr-mode-ui="enabled: false"
+        device-orientation-permission-ui="enabled: true">
+        <a-assets timeout="60000">
+          <video
+            id="experience-video"
+            src="assets/experience.mp4"
+            preload="auto"
+            crossorigin="anonymous"
+            playsinline
+            webkit-playsinline
+            muted
+            loop></video>
+          <a-asset-item
+            id="experience-model"
+            src="https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models/2.0/Avocado/glTF-Binary/Avocado.glb"></a-asset-item>
+        </a-assets>
+
+        <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+        <a-entity id="frame-anchor" mindar-image-target="targetIndex: 0">
+          <a-video
+            id="target-video"
+            src="#experience-video"
+            width="1.4"
+            height="0.85"
+            position="0 0 0"
+            rotation="-90 0 0"
+            visible="true"
+            material="shader: standard; side: double; transparent: true">
+          </a-video>
+
+          <a-entity
+            id="target-model"
+            gltf-model="#experience-model"
+            scale="0.35 0.35 0.35"
+            position="0 0 0"
+            rotation="0 0 0"
+            visible="false">
+            <a-animation
+              attribute="rotation"
+              dur="9000"
+              easing="linear"
+              repeat="indefinite"
+              to="0 360 0"></a-animation>
+          </a-entity>
+
+          <a-plane
+            width="1.5"
+            height="0.95"
+            position="0 -0.01 0"
+            rotation="-90 0 0"
+            material="color: #04060b; opacity: 0.35"></a-plane>
+        </a-entity>
+      </a-scene>
+    </main>
+
+    <aside class="marker-card">
+      <div>
+        <p class="eyebrow">Marcador activo</p>
+        <h2 data-marker-title>Marcador demo MindAR</h2>
+        <p data-marker-description>
+          Usa este marcador mientras defines la textura final. Administra más opciones desde el panel.
+        </p>
+        <p class="marker-meta">Video asignado: <span data-marker-video>—</span></p>
+        <div class="marker-actions">
+          <a class="pill" href="../admin/">Abrir panel admin</a>
+          <a
+            class="pill ghost"
+            data-marker-link
+            href="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example.jpg"
+            target="_blank"
+            rel="noreferrer">
+            Descargar imagen
+          </a>
+        </div>
+      </div>
+      <img
+        data-marker-preview
+        src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example.jpg"
+        alt="Marcador activo" />
+    </aside>
+
+    <script type="module" src="scripts/app.js"></script>
+  </body>
+</html>

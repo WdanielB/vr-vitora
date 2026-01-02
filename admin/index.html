@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Admin — Cuadros con Vida</title>
+    <meta name="description" content="Gestiona los cuadros y videos de tu florería para la experiencia AR." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <main class="admin-layout">
+      <header class="admin-hero">
+        <div>
+          <p class="eyebrow">🌸 Panel de administración</p>
+          <h1>Gestiona los cuadros de tu florería</h1>
+          <p>
+            Agrega las imágenes de los cuadros impresos y asígnales un video. Cuando tus clientes escaneen el cuadro, verán el video que configuraste.
+          </p>
+        </div>
+        <div class="hero-actions">
+          <a class="chip" href="../">Probar experiencia AR</a>
+        </div>
+      </header>
+
+      <section class="panel form-panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">Nuevo cuadro</p>
+            <h2>Registrar imagen + video</h2>
+          </div>
+          <button class="chip ghost" type="button" data-reset>Restablecer todo</button>
+        </div>
+        <form class="marker-form" data-marker-form>
+          <label>
+            <span>Nombre del cuadro</span>
+            <input type="text" name="name" placeholder="Ramo Primavera 2025" required />
+          </label>
+          <label>
+            <span>URL de la imagen target (.mind)</span>
+            <input type="url" name="imageUrl" placeholder="https://tudominio.com/cuadro.mind" required />
+            <small>Archivo .mind compilado del cuadro. <a href="https://hiukim.github.io/mind-ar-js-doc/tools/compile" target="_blank">Generar aquí →</a></small>
+          </label>
+          <label>
+            <span>URL del video</span>
+            <input type="url" name="videoUrl" placeholder="https://tudominio.com/video.mp4" required />
+            <small>El video que se reproducirá sobre el cuadro.</small>
+          </label>
+          <label>
+            <span>Notas (opcional)</span>
+            <textarea name="description" rows="2" placeholder="Cliente: María García, Pedido #1234"></textarea>
+          </label>
+          <button type="submit" class="chip solid">Guardar cuadro</button>
+          <p class="form-hint">Se generará automáticamente un código de 4 letras para el cliente.</p>
+        </form>
+      </section>
+
+      <section class="panel list-panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">Cuadros registrados</p>
+            <h2>Base de datos</h2>
+          </div>
+          <span class="tag" data-count>0 cuadros</span>
+        </div>
+        <div class="marker-list" data-marker-list></div>
+      </section>
+
+      <section class="panel preview-panel">
+        <p class="eyebrow">Cuadro activo actualmente</p>
+        <div class="preview-card" data-active-preview>
+          <div class="preview-code" data-active-code>----</div>
+          <div>
+            <h3 data-active-name>Sin selección</h3>
+            <p data-active-description>Activa un cuadro para que los clientes lo vean.</p>
+            <p class="preview-meta">Video: <span data-active-video>—</span></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Edit Modal -->
+    <div class="modal" data-edit-modal hidden>
+      <div class="modal__backdrop" data-modal-backdrop></div>
+      <div class="modal__content">
+        <button class="modal__close" data-modal-close>&times;</button>
+        <h2>Editar cuadro</h2>
+        <form class="marker-form" data-edit-form>
+          <input type="hidden" name="id" />
+          <label>
+            <span>Nombre del cuadro</span>
+            <input type="text" name="name" required />
+          </label>
+          <label>
+            <span>URL de la imagen target (.mind)</span>
+            <input type="url" name="imageUrl" required />
+          </label>
+          <label>
+            <span>URL del video</span>
+            <input type="url" name="videoUrl" required />
+          </label>
+          <label>
+            <span>Notas (opcional)</span>
+            <textarea name="description" rows="2"></textarea>
+          </label>
+          <div class="form-actions">
+            <button type="button" class="chip ghost" data-modal-cancel>Cancelar</button>
+            <button type="submit" class="chip solid">Guardar cambios</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <template id="marker-row">
+      <article class="marker-row" data-marker-item>
+        <div class="marker-row__media">
+          <div class="marker-code" data-row-code>----</div>
+          <div>
+            <h3 data-row-name></h3>
+            <p data-row-description></p>
+            <p class="row-meta">Video: <span data-row-video></span></p>
+          </div>
+        </div>
+        <div class="marker-row__actions">
+          <button class="chip copy-code" type="button" data-action="copy">📋 Copiar código</button>
+          <button class="chip edit" type="button" data-action="edit">✏️ Editar</button>
+          <button class="chip ghost" type="button" data-action="delete">Eliminar</button>
+        </div>
+      </article>
+    </template>
+
+    <script type="module" src="scripts/app.js"></script>
+  </body>
+</html>

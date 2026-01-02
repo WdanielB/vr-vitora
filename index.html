@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Cuadros con Vida</title>
+    <meta name="theme-color" content="#0a0f14" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles/ar.css" />
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+  </head>
+  <body>
+    <div class="code-screen" data-code-screen>
+      <div class="code-card">
+        <h1>Tu cuadro tiene magia!</h1>
+        <p>Ingresa el codigo de 4 letras que viene con tu cuadro.</p>
+        <div class="code-input-group">
+          <input type="text" class="code-input" data-code-input maxlength="4" placeholder="ABCD" autocomplete="off" autocapitalize="characters" spellcheck="false" />
+          <button class="btn-submit" data-submit disabled>
+            <span>Activar camara</span>
+          </button>
+        </div>
+        <p class="code-error" data-code-error hidden>Codigo no encontrado.</p>
+        <p class="code-hint">El codigo esta en la tarjeta de tu cuadro.</p>
+      </div>
+    </div>
+    <div class="ar-screen" data-ar-screen hidden>
+      <header class="ar-header">
+        <button class="btn-back-ar" data-back-ar>Volver</button>
+        <span class="ar-name" data-ar-name>Cargando...</span>
+        <div class="ar-header__right">
+          <div class="status-badge" data-status>Iniciando...</div>
+          <button class="btn-fullscreen" data-fullscreen title="Pantalla completa">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+      <div class="ar-hint" data-hint>
+        <p>Apunta la camara al cuadro</p>
+      </div>
+      <div class="ar-detected" data-detected hidden>Cuadro detectado!</div>
+      <button class="btn-play-video" data-play-video hidden>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <span>Reproducir</span>
+      </button>
+      <div class="ar-scene-container" data-scene-container></div>
+    </div>
+    <button class="btn-help-float" data-help>?</button>
+    <div class="help-modal" data-help-modal hidden>
+      <div class="help-modal__backdrop" data-help-backdrop></div>
+      <div class="help-modal__content">
+        <button class="help-modal__close" data-help-close>&times;</button>
+        <h2>Como funciona?</h2>
+        <ol>
+          <li>Busca el codigo de 4 letras en tu cuadro.</li>
+          <li>Ingresa el codigo y toca Activar camara.</li>
+          <li>Apunta la camara al cuadro impreso.</li>
+          <li>El video aparecera sobre el cuadro!</li>
+        </ol>
+      </div>
+    </div>
+    <script type="module" src="scripts/ar.js"></script>
+  </body>
+</html>
